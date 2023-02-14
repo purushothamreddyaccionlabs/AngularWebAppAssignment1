@@ -10,21 +10,27 @@
                     </div>
                 </div>
                 <div class="col-8 d-flex flex-row justify-content-center">
-                        <form class="d-flex flex-column justify-content-center" [formGroup]="loginForm" (ngSubmit)="submit(loginForm)">
+                        <form class="d-flex flex-column justify-content-center" [formGroup]="loginForm" (ngSubmit)="submit()">
                                 <h1>Sign in to Accion</h1>
                                 <p>Enter your Details Below</p>
                                 <label for="logusername" class="mb-1 username-label">Username</label>
-                                <input type="text" id="logusername" class="form-control mb-2" formControlName="username"/>
+                                <input type="text" id="logusername" class="form-control mb-2" formControlName="username" required/>
                                 <span class="err-msg" *ngIf="loginForm.get('username').touched && loginForm.get('username').hasError('required')">Enter user name</span>
                                 <span class="err-msg" *ngIf="loginForm.get('username').touched && loginForm.get('username').hasError('minlength')">Enter valid name</span>    
-                               
+                                <span class="err-msg" *ngIf="isFieldInvalid('username')">
+                                    User name cannot be empty
+                                </span>
+
                                 <label for="logpassword" class="mb-1 userpassword-label">Password</label>
-                                <input type="password" id="logpassword" class="form-control" formControlName="password"/>
+                                <input type="password" id="logpassword" class="form-control" formControlName="password" required/>
                                 <span class="err-msg" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('required')">Password can not be empty</span>
                                 <span class="err-msg" *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('minlength')">Minimum length should be 8 charectors</span>
+                                <span class="err-msg" *ngIf="isFieldInvalid('username')">
+                                    Password cannot be empty
+                                </span>
 
                                 <div class="text-center mt-3">
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                    <button type="submit" class="btn btn-primary" >Sign in</button>
                                 </div>
                         </form>
                 </div>
