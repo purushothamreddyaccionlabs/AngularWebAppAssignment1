@@ -33,7 +33,7 @@
 }
 .card-heading{
     color:#ffffff;
-    font-size:10px;
+    font-size:20px;
 }
 .card-paragraph{
     color:#ffffff;
@@ -43,4 +43,29 @@
 .err-msg{
     color:red;
     border-color: red;
+}
+.length-form{
+    width:40%;
+}
+.sign-heading{
+    font-size: 40px;
+    font-weight: bold;
+}
+.sign-paragraph{
+    font-size:15px;
+
+}
+input.ng-touched.ng-valid{
+    border:2px solid rgb(138, 229, 138);
+}
+.sing-up{
+    color:blue;
+    font-size: medium;
+}
+.gotologinpage{
+    color:blue;
+    font-size:medium;
+}
+.registration-page{
+     background-color: aquamarine;
 }

@@ -13,6 +13,7 @@ import { LoginService } from '../LoginService/login.service';
 })
 export class LoginpageComponent implements OnInit {
   
+  loginVsSign = true;
   loginForm:any= FormGroup;
   UserName = "John@gmail.com";
   Password = "Test123456";
@@ -58,7 +59,12 @@ export class LoginpageComponent implements OnInit {
     this.formSubmitAttempt = true;
     
   }
-
-
+  
+  signup(){
+    this.loginVsSign = true;
+  }
+  gotologinpage(){
+    this.loginVsSign = false;
+  }
 
 }
