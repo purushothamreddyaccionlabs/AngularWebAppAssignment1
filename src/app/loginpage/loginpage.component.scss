@@ -2,7 +2,7 @@
     background-image:url("../../assets/image/Loginpage.png");
     height:100vh;
     background-size: cover;
-    border-top-right-radius: 30px;
+    
     padding:0px;
 }
 .username-label{
@@ -69,3 +69,6 @@ input.ng-touched.ng-valid{
 .registration-page{
      background-color: aquamarine;
 }
+// input.ng-untouched.ng-invalid{
+//     border:2px solid red;
+// }

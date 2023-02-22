@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../LoginService/login.service';
+import { LoginService } from '../authService/login.service';
 import {MatDialog, MAT_DIALOG_DATA,MatDialogRef} from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { filter } from 'rxjs';
@@ -121,12 +121,6 @@ export class DashboardComponent {
     }
 
  
-
-
-
-
-
-
     
   }
 

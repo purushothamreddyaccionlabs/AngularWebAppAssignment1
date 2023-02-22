@@ -8,8 +8,8 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 
 const routes: Routes = [
   { path: '', component: LoginpageComponent },
-  { path: 'homepage', component: HomepageComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'homepage', component: HomepageComponent, canActivate:[AuthGuard]},
+  { path: 'dashboard', component: DashboardComponent },
   { path: 'loginpage', component: LoginpageComponent }
 
 
