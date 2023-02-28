@@ -16,6 +16,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ToastrModule } from 'ngx-toastr';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -39,7 +43,10 @@ import { MatInputModule } from '@angular/material/input';
     MatMenuModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    NgImageSliderModule,
+    NgxPaginationModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

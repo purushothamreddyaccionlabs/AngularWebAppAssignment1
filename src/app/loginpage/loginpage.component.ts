@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { NEVER } from 'rxjs';
 import { LoginService } from '../authService/login.service';
 
@@ -20,49 +21,32 @@ export class LoginpageComponent implements OnInit {
   regFormStatus = false;
   loginVsSign = false;
   regform: any = FormGroup;
+  InvaliderrMsg:any ="";
+  regPassAlert="";
   
-  passwordArray:any=[
+  passwordArray:Array<any>=[
     {
       rgname:"King",
       password:"12345"
   },{
     rgname:"Venu",
-    password:"12890"
+    password:"asdf"
   }
 
   ]
 
-  registationArry:object[] = [
-    {
-      "rgname":"John@gmail.com",
-      "rgemail":"John@gmail.com",
-      "rgpassword":"Test123456"
-    },    {
-      "rgname":"spreddy",
-      "rgemail":"spreddy@gmail.com",
-      "rgpassword":"Test12345"
-    },    {
-      "rgname":"rajesh",
-      "rgemail":"rajesh@gmail.com",
-      "rgpassword":"Test123456"
-    }
-  ];
-
-
-
-
-  // private formSubmitAttempt: boolean | undefined;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: LoginService
+    private authService: LoginService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.loginFormBuild();
     this.regformbuilder();
-    localStorage.setItem('pswArray',JSON.stringify(this.passwordArray));
+    localStorage.setItem('userdetailsArray',JSON.stringify(this.passwordArray));
     
   }
 
@@ -76,7 +60,7 @@ export class LoginpageComponent implements OnInit {
     this.regform = this.fb.group({
       regusername: ['', [Validators.required, Validators.minLength(4)]],
       reguseremail: ['', [Validators.required, Validators.email]],
-      regpassword: ['', [Validators.required, Validators.minLength(8)]]
+      regpassword: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
@@ -90,15 +74,20 @@ export class LoginpageComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.valid){
+      this.toastr.success("Login success");
       this.authService.login(this.loginForm.value);
-    }
+    }else{
     this.formSubmitAttempt = true;
+    this.InvaliderrMsg = "Invalid Username and Password";
+    this.toastr.error("Invalid username and password");
+    }
    
   }
 
   regsubmit(){
     
     if(this.regform.status === 'INVALID'){
+      this.toastr.error("Enter valid details");
       this.regFormStatus = true;
     }else{
       // console.log(this.regform.value);
@@ -106,19 +95,16 @@ export class LoginpageComponent implements OnInit {
       var y = this.regform.get('reguseremail').value;
       var z = this.regform.get('regpassword').value;
       var regUser={
-        "rgname":x,
-        "rgemail":y,
-        "rgpassword":z
+        rgname:x,
+        password:z,
+        rgemail:y
       } 
-      // console.log(x);
-      // console.log(y);
-      // console.log(z);
-      this.registationArry.push(regUser);
-      localStorage.setItem('regdata',JSON.stringify(this.registationArry));
+      this.passwordArray.push(regUser);
+      localStorage.setItem('userdetailsArray',JSON.stringify(this.passwordArray));
+      this.regPassAlert = "Details Registered successfully";
+      this.toastr.success("Registration done successfully");
       this.loginVsSign = false;
-
-      // console.log(this.registationArry);
-      
+     
     }
   }
 

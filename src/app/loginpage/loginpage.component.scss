@@ -69,6 +69,8 @@ input.ng-touched.ng-valid{
 .registration-page{
      background-color: aquamarine;
 }
-// input.ng-untouched.ng-invalid{
-//     border:2px solid red;
-// }
+.invalid-user-display{
+    text-align: center;
+    color:red;
+    font-size:medium;
+}

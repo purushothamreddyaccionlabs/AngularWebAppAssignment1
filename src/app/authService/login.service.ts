@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class LoginService implements OnInit{
 
   private loggedIn:boolean|undefined; //for canActivate service
-  pswArray: any; // geting the passwords container array from localstorage
-
+  pswArray: Array<any>=[]; // geting the passwords container array from localstorage
+  diaplayUName='';
 
   regCredentials:any; 
   
@@ -17,20 +17,16 @@ export class LoginService {
   constructor(private router:Router) { }
 
 ngOnInit(){
-  this.userCredential();
-  this.pswArray = localStorage.getItem('pswArray');
-}
-userCredential(){
-  this.regCredentials = JSON.parse(localStorage.getItem('regdata') || '{}');
-  console.log(this.regCredentials);
+ 
+
 }
 
-  
- 
+
   
 
   logoutuser(){
     this.router.navigate(['']);
+    sessionStorage.clear();
   }
   canLogin(){ //for CanActivate
     if(!this.loggedIn){
@@ -39,18 +35,19 @@ userCredential(){
     return true;
   }
 login(user:User){
-  debugger
-  const foundUser = this.pswArray.find((element: any) => {
-    return user.username === element.rgname && user.password === element.password;
-  });
-  if (foundUser) {
-    this.loggedIn = true;
-    this.router.navigate(['homepage']);
-  }
-    // if(user.username === item.rgname && user.password === item.password ){
-      
-    // }
+  const localstroragedata= localStorage.getItem('userdetailsArray');
+  this.pswArray = JSON.parse(localstroragedata || '{}');
+  console.log(this.pswArray);
   
+  for(var item of this.pswArray){
+    if(user.username === item.rgname && user.password ===item.password ){
+      this.loggedIn = true;
+      this.router.navigate(['homepage']);
+      this.diaplayUName = item.rgname;
+      sessionStorage.setItem("UName",this.diaplayUName);
+    };  
+  }
+     
 }
 
   

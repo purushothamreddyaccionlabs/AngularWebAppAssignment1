@@ -7,25 +7,27 @@
         </mat-menu>
         <span class="dashboard-space">DASHBOARD</span>
         <span class="example-spacer  text-end">
-            
+            Welcome {{displayUName}}
         </span>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <div class="row d-flex m-3">
-    <div class="col-5">
-        <input type="search" placeholder="search" class="form-control">
+    <div class="col-8">
+        <mat-form-field class="input-filter">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="search" #input >
+          </mat-form-field>
+          <!-- <button class="resetbtn"><mat-icon>refresh</mat-icon></button> -->
     </div>
-    <div class="col-3">
-        <button class="resetbtn"><mat-icon>refresh</mat-icon></button>
-    </div>
+   
     <div class="col-2">
         <button class="createbtn p-2" (click)="openDialog()"><i class="bi bi-plus-square add-icon"></i>Add New</button>
     </div>
     
 </div>
 
-<table mat-table [dataSource]="usersData" class="mat-elevation-z8">
+<table mat-table [dataSource]="tabledata | paginate:{itemsPerPage:tableSize,currentPage:page,totalItems:count}" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
@@ -62,3 +64,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div class="pagination-div">
+    <pagination-controls 
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
+</div>
