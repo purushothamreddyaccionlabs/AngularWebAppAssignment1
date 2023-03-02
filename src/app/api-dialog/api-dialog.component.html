@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="text-center">CREATE STORE</h1>
+<form [formGroup]="form">
+    <input type ="text" class="form-control" placeholder="STORE NAME" formControlName="storename"/>
+        <div mat-dialog-actions class="apidialogbtns">
+            <button mat-button mat-dialog-close mat-flat-button color="primary" class="dialogclosebtn">Close</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="submitdata()">Create</button>
+        </div>
+</form>
+

@@ -20,6 +20,9 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 import { MatPaginator } from '@angular/material/paginator';
+import { BackendDataComponent } from './backend-data/backend-data.component';
+import { ApiDialogComponent } from './api-dialog/api-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -28,7 +31,9 @@ import { MatPaginator } from '@angular/material/paginator';
     LoginpageComponent,
     HomepageComponent,
     DashboardComponent,
-    DialogComponent
+    DialogComponent,
+    BackendDataComponent,
+    ApiDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ import { MatPaginator } from '@angular/material/paginator';
     MatInputModule,
     NgImageSliderModule,
     NgxPaginationModule,
+    MatButtonModule,
     ToastrModule.forRoot()
   ],
   providers: [],

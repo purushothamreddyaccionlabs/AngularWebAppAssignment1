@@ -3,6 +3,8 @@
         <button mat-button [matMenuTriggerFor]="menu" class="menu-bar">Menu</button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item routerLinkActive="active" routerLink="/homepage">Home</button>
+            <button mat-menu-item routerLinkActive="active" routerLink="/dashboard">Dashboard</button>
+            <button mat-menu-item routerLinkActive="active" routerLink="/backenddata">StoresList</button>
             <button mat-menu-item (click)="logoutpage()">Log out</button>
         </mat-menu>
         <span class="dashboard-space">DASHBOARD</span>
