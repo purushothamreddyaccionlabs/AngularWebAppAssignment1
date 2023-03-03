@@ -1,9 +1,36 @@
-<h1 mat-dialog-title class="text-center">CREATE STORE</h1>
-<form [formGroup]="form">
+<!-- StoreTable -->
+<form [formGroup]="form" *ngIf="storeformid==1">
+    <h1 mat-dialog-title class="text-center">CREATE STORE</h1>
     <input type ="text" class="form-control" placeholder="STORE NAME" formControlName="storename"/>
         <div mat-dialog-actions class="apidialogbtns">
             <button mat-button mat-dialog-close mat-flat-button color="primary" class="dialogclosebtn">Close</button>
-            <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="submitdata()">Create</button>
+            <button mat-flat-button color="primary" [disabled]="!form.valid" (click)="submitstoredata()">Create</button>
         </div>
 </form>
+<!-- Category Table -->
+<form [formGroup]="categoryform" *ngIf="storeformid==2">
+    <h1 mat-dialog-title class="text-center">CREATE CATEGORY</h1>
+    <input type ="text" class="form-control" placeholder="CATEGORY NAME" formControlName="categoryname"/>
+        <div mat-dialog-actions class="apidialogbtns">
+            <button mat-button mat-dialog-close mat-flat-button color="primary" class="dialogclosebtn">Close</button>
+            <button mat-flat-button color="primary" [disabled]="!categoryform.valid" (click)="submitcategory()">Create</button>
+        </div>
+</form>
+<!-- CategoryStore Table -->
+<form [formGroup]="catstoreform" *ngIf="storeformid==3">
+    <h1 mat-dialog-title class="text-center">ADD CATEGORY TO TORE</h1>
+    <mat-form-field appearance="fill">
+        <mat-label>Favorite food</mat-label>
+        <mat-select formControlName="storeId" name="food">
+          <mat-option *ngFor="let item of storeGetData" [value]="item.storename">
+            {{item.storename}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        <div mat-dialog-actions class="apidialogbtns">
+            <button mat-button mat-dialog-close mat-flat-button color="primary" class="dialogclosebtn">Close</button>
+            <button mat-flat-button color="primary" [disabled]="!catstoreform.valid" (click)="submitcategory()">Create</button>
+        </div>
+</form>
+
 

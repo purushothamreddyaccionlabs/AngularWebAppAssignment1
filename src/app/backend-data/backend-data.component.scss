@@ -20,7 +20,7 @@
   }
   
   .storeList{
-    border-style:solid;
+    border-style:none;
     height: 80vh;
     display: flex;
     flex-direction: column;
@@ -48,4 +48,8 @@
 .example-table-container {
   overflow-y: auto;
   width:100%;
+}
+.mappingbuttons{
+  text-align: end;
+  margin-right: 50px;
 }

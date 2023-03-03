@@ -23,7 +23,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { BackendDataComponent } from './backend-data/backend-data.component';
 import { ApiDialogComponent } from './api-dialog/api-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -52,6 +52,7 @@ import { MatButtonModule } from '@angular/material/button';
     NgImageSliderModule,
     NgxPaginationModule,
     MatButtonModule,
+    MatSelectModule,
     ToastrModule.forRoot()
   ],
   providers: [],
