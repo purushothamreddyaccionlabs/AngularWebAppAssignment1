@@ -23,6 +23,7 @@ export class BackendDataComponent {
 
   storeTableData: any;
   categoryTableData:any;
+  productTableData:any;
   displayUName = sessionStorage.getItem("UName");
 
   formGroupid:any;
@@ -32,12 +33,16 @@ export class BackendDataComponent {
 
   //getdata from db
   Getstoredata(){
-    this.apiservice.GetStoreData().subscribe(data => {
+    this.apiservice.GetStoreData().subscribe(data => { // Requesting store data
       this.storeTableData = data;
     })
-    this.apiservice.GetCategoryData().subscribe(catdata =>{
+    this.apiservice.GetCategoryData().subscribe(catdata =>{ // Requesting category data
       this.categoryTableData = catdata;
     })
+    this.apiservice.GetProductData().subscribe(product=>{ // Requesting product data
+      this.productTableData = product;
+    })
+
   }
 
 
@@ -51,6 +56,8 @@ export class BackendDataComponent {
   displayedColumns: string[] = ['id', 'storename'];
   //Category table categorycolumns
   categoryColumns: string[] = ['id','categoryname'];
+  //Product table columns
+  productcategoryColumns:string[] = ['id','productName','quantity','price','action'];
 
   //For store table functionality
   openDialog(): void {
@@ -105,11 +112,113 @@ export class BackendDataComponent {
       width:'30%',
       data :{
           FormId : this.formGroupid,
-          storeData:this.storeTableData
-      },
-     
+          storeData:this.storeTableData,
+          catData:this.categoryTableData
+      }
+    })
+    dialogRef.afterClosed().subscribe(create=>{
+      var forpoststoreid = create.data.storeId.value.id;
+      var forpostCatid  = create.data.catId.value.id;
+
+    
+      var data={
+        storeId:forpoststoreid,
+        catId:forpostCatid
+      }
+      this.apiservice.PostCatStoreData(data).subscribe(response=>{
+        console.log(response);
+      })
     })
   }
 
+  //For Product table functionality
+  openProductDialogBox():void{
+    this.formGroupid = 4;
+    let dialogRef = this.dialog.open(ApiDialogComponent,{
+      width:'30%',
+      data:{
+          FormId:this.formGroupid
+      }
+    })
 
-}
+    dialogRef.afterClosed().subscribe(create=>{
+      var pname = create.data.productName.value;
+      var pquantity = create.data.quantity.value;
+      var pprice = create.data.price.value;
+      var data={
+        productName:pname,
+        quantity:pquantity,
+        price:pprice
+      }
+      this.apiservice.PostProductData(data).subscribe(res=>{
+        console.log(res);
+        this.Getstoredata();
+      })
+    })
+
+    }
+
+    //For product category table Mapping
+    dialogopenforProductMap():void{
+      this.formGroupid = 5;
+      let dialogRef = this.dialog.open(ApiDialogComponent,{
+        width:'30%',
+        data:{
+          FormId:this.formGroupid,
+          ProductData:this.productTableData,
+          catData:this.categoryTableData
+        }
+      })
+
+      dialogRef.afterClosed().subscribe(create=>{
+        var catid = create.data.categoryId.value.id;
+        var pid = create.data.productId.value.id;
+
+        var data={
+          categoryId:catid,
+          productId:pid
+        }
+        this.apiservice.PostCatProductData(data).subscribe(res=>{
+          console.log(res);
+        })
+      })
+    }
+
+    deleteproduct(element:any){
+      // console.log(element.id);
+      this.apiservice.DeleteProductItme(element.id).subscribe(res=>{
+        console.log(res);
+        this.Getstoredata();
+      })
+    }
+    updateproduct(element:any){
+      console.log(element);
+      let existingId = element.id;
+      this.formGroupid = 4;
+      let dialogRef = this.dialog.open(ApiDialogComponent,{
+        width:'30%',
+        data:{
+          FormId:this.formGroupid,
+          Editdata:element
+        }
+
+      })
+      dialogRef.afterClosed().subscribe(update=>{
+        var pname = update.data.productName.value;
+        var pquantity = update.data.quantity.value;
+        var pprice = update.data.price.value;
+       var data={
+          productName:pname,
+          quantity:pquantity,
+          price:pprice
+        }
+
+        this.apiservice.EditedProductData(existingId,data).subscribe(res=>{
+          console.log(res);
+        })
+      })
+    }
+
+
+  }
+

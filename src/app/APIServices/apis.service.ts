@@ -23,6 +23,35 @@ export class APIsService {
   PostCategoryData(data:any){
     return this.http.post("https://localhost:7167/api/Category/api/CreateCategory",data)
   }
+
+  //CatStore Table Post data
+  PostCatStoreData(data:any){
+    return this.http.post("https://localhost:7167/api/Cat_store/Create",data)
+  }
   
+  //Product Table Get Request
+  GetProductData(){
+    return this.http.get("https://localhost:7167/api/Product/GetProducts");
+  }
+
+  //Product Table Post Request
+  PostProductData(data:any){
+    return this.http.post("https://localhost:7167/api/Product/AddProduct",data);
+  }
+
+  // Category product post request
+  PostCatProductData(data:any){
+    return this.http.post("https://localhost:7167/api/CatProduct/AddCategoryProduct",data);
+  }
+
+  // delete items from product
+  DeleteProductItme(data:any){
+    return this.http.delete(`https://localhost:7167/api/Product/DeleteProduct/${data}`);
+  }
+
+  // Edit product data
+  EditedProductData(Id:any,data:any){
+    return this.http.put(`https://localhost:7167/api/Product/EditProduct/Edit/${Id}`,data)
+  }
 
 }
