@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild ,HostBinding} from '@angular/core';
 import { LoginService } from '../authService/login.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -7,6 +7,8 @@ import { FormControl } from '@angular/forms';
 import { MatDataSourceModule } from '@matheo/datasource';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import {MatMenuModule} from '@angular/material/menu';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 
 
@@ -113,7 +115,8 @@ export class DashboardComponent {
   constructor(
     private loginsvr: LoginService,
     private dialog: MatDialog,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    public overlaycontainer:OverlayContainer
   ) { }
 
   openDialog(): void {
@@ -189,6 +192,28 @@ export class DashboardComponent {
     this.dataSource.filter = userfiltervalues.trim().toLowerCase();
     this.tabledata = this.dataSource.filteredData;
     this.onTableDataChange(event);
+  }
+
+
+  //theme
+  availableColors = [
+    { name: 'none', color: '' },
+    { name: 'Primary', color: 'primary' },
+    { name: 'Accent', color: 'accent' },
+    { name: 'Warn', color: 'warn' }
+  ];
+
+  color = 'accent';
+  mode = 'indeterminate';
+  value = 50;
+
+  currentTheme = '';
+  @HostBinding('class') componentCssClass: any;
+
+  onSetTheme(theme: any){
+    this.currentTheme = theme;
+    this.overlaycontainer.getContainerElement().classList.add(theme);
+    this.componentCssClass = theme;
   }
 
 

@@ -2,7 +2,8 @@
     border-style: none;
     color:white;
     background-color: transparent;
-    font-weight: bold;
+    font-weight: 400;
+    font-size:20px;
   
   }
   .example-spacer {
@@ -52,4 +53,10 @@
 .productDelbtn{
   height:50px;
   width:50px;
+}
+.backend-styles{
+  padding:20px;
+}
+.icon-spacing{
+  margin-right: 10px;
 }

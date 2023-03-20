@@ -8,6 +8,32 @@
             <button mat-menu-item (click)="logoutpage()">Log out</button>
         </mat-menu>
         <span class="dashboard-space">DASHBOARD</span>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu2" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu2="matMenu">
+            <button mat-menu-item (click)="onSetTheme('native')">
+              Native
+            </button>
+            <button mat-menu-item (click)="onSetTheme('default')">
+              Default
+            </button>
+            <button mat-menu-item (click)="onSetTheme('athena')">
+              Athena
+            </button>
+            <button mat-menu-item (click)="onSetTheme('poseidon')">
+              Poseidon
+            </button>
+            <button mat-menu-item (click)="onSetTheme('hera')">
+              Hera
+            </button>
+            <button mat-menu-item (click)="onSetTheme('zeus')">
+              Zeus
+            </button>
+          </mat-menu>
+
+
         <span class="example-spacer  text-end">
             Welcome {{displayUName}}
         </span>

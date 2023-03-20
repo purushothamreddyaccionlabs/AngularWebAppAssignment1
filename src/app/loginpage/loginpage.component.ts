@@ -30,7 +30,11 @@ export class LoginpageComponent implements OnInit {
       password:"12345"
   },{
     rgname:"Venu",
-    password:"asdf"
+    password:"12345"
+  },
+  {
+    rgname:"Purushotham",
+    password:"12345"
   }
 
   ]
@@ -56,6 +60,7 @@ export class LoginpageComponent implements OnInit {
       password: ['', [Validators.required]]
     });
   }
+
   regformbuilder() {
     this.regform = this.fb.group({
       regusername: ['', [Validators.required, Validators.minLength(4)]],
@@ -74,8 +79,8 @@ export class LoginpageComponent implements OnInit {
 
   onSubmit() {
     if(this.loginForm.valid){
-      this.toastr.success("Login success");
       this.authService.login(this.loginForm.value);
+      
     }else{
     this.formSubmitAttempt = true;
     this.InvaliderrMsg = "Invalid Username and Password";

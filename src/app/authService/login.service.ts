@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from './user';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class LoginService implements OnInit{
   regCredentials:any; 
   
 
-  constructor(private router:Router) { }
+  constructor(private router:Router,private toastr: ToastrService) { }
 
 ngOnInit(){
  
@@ -45,7 +46,9 @@ login(user:User){
       this.router.navigate(['homepage']);
       this.diaplayUName = item.rgname;
       sessionStorage.setItem("UName",this.diaplayUName);
-    };  
+      this.toastr.success("Login Successfull");
+
+    };
   }
      
 }

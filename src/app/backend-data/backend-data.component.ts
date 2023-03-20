@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding} from '@angular/core';
 import { ApiDialogComponent } from '../api-dialog/api-dialog.component';
 import { APIsService } from '../APIServices/apis.service';
 import { LoginService } from '../authService/login.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
+import { ToastrService } from 'ngx-toastr';
+import {MatMenuModule} from '@angular/material/menu';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-backend-data',
@@ -17,7 +20,9 @@ export class BackendDataComponent {
   constructor(
     private loginsvr: LoginService,
     private apiservice: APIsService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private toater:ToastrService,
+    public overlaycontainer:OverlayContainer
   ) { }
 
 
@@ -76,6 +81,7 @@ export class BackendDataComponent {
     this.apiservice.PostStoreData(data).subscribe((res)=>{
       console.log(res);
       this.Getstoredata();
+      this.toater.success("Store Added");
     });
 
   })
@@ -101,6 +107,7 @@ export class BackendDataComponent {
       this.apiservice.PostCategoryData(data).subscribe(res=>{
         console.log(res);
         this.Getstoredata();
+        this.toater.success("Category Created successfully");
       })
     })
   }
@@ -127,6 +134,7 @@ export class BackendDataComponent {
       }
       this.apiservice.PostCatStoreData(data).subscribe(response=>{
         console.log(response);
+        this.toater.success("Added successfully");
       })
     })
   }
@@ -153,6 +161,7 @@ export class BackendDataComponent {
       this.apiservice.PostProductData(data).subscribe(res=>{
         console.log(res);
         this.Getstoredata();
+        this.toater.success("Product Added successfully");
       })
     })
 
@@ -180,6 +189,7 @@ export class BackendDataComponent {
         }
         this.apiservice.PostCatProductData(data).subscribe(res=>{
           console.log(res);
+          this.toater.success("Added successfully");
         })
       })
     }
@@ -189,6 +199,7 @@ export class BackendDataComponent {
       this.apiservice.DeleteProductItme(element.id).subscribe(res=>{
         console.log(res);
         this.Getstoredata();
+        this.toater.success("Item Deleted");
       })
     }
     updateproduct(element:any){
@@ -204,10 +215,12 @@ export class BackendDataComponent {
 
       })
       dialogRef.afterClosed().subscribe(update=>{
+        
         var pname = update.data.productName.value;
         var pquantity = update.data.quantity.value;
         var pprice = update.data.price.value;
        var data={
+          Id:element.id,
           productName:pname,
           quantity:pquantity,
           price:pprice
@@ -215,9 +228,34 @@ export class BackendDataComponent {
 
         this.apiservice.EditedProductData(existingId,data).subscribe(res=>{
           console.log(res);
+          this.Getstoredata()
+          this.toater.success("Product Edited successfully");
         })
+       
       })
     }
+
+
+  //theme
+  availableColors = [
+    { name: 'none', color: '' },
+    { name: 'Primary', color: 'primary' },
+    { name: 'Accent', color: 'accent' },
+    { name: 'Warn', color: 'warn' }
+  ];
+
+  color = 'accent';
+  mode = 'indeterminate';
+  value = 50;
+
+  currentTheme = '';
+  @HostBinding('class') componentCssClass: any;
+
+  onSetTheme(theme: any){
+    this.currentTheme = theme;
+    this.overlaycontainer.getContainerElement().classList.add(theme);
+    this.componentCssClass = theme;
+  }
 
 
   }
